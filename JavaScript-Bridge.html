@@ -18,7 +18,12 @@
     const browser_bridge = {
         init() {
             //初始化方法
+            console.log('init');
             return '当前桥接对象：Browser'
+        },
+        debug() {
+            //调试方法
+            console.log('debug');
         },
     };
 
@@ -32,6 +37,7 @@
         }
     });
 
+    window.bridge.debug();
     $('#init').html(window.bridge.init());
 </script>
 </html>
