@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <title>WebView Html5+ SDK 测试脚本</title>
+</head>
+<body>
+<noscript>当前 JavaScript 不可用</noscript>
+<img src="file:///storage/emulated/0/DCIM/Camera/IMG_20200320_123755.jpg" alt="aaaaa">
+<div id="init"></div>
+<div id="gallery"></div>
+</body>
+<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    new VConsole();
+    document.addEventListener('plusready', function () {
+        if (typeof plus === 'undefined') {
+            $('#init').html('Html5+ SDK 不存在');
+            throw ReferenceError('plus');
+        }
+
+        $('#gallery').html('<div>双击上传图片</div>').dblclick(function () {
+            $('#gallery').append('<div>gallery ondblclick</div>');
+            plus.gallery.pick(function (path) {
+                $('#gallery').append('<div>图片路径：' + path + '</div>');
+                plus.io.getImageInfo(path, 'sha1', function (info) {
+                    $('#gallery').append('<div>图片信息：' + JSON.stringify(info) + '</div>');
+                }, function (error) {
+                    $('#gallery').append('<div>获取图片信息失败：' + JSON.stringify(error) + '</div>');
+                }, function () {
+                    $('#gallery').append('<div>获取图片信息完成</div>');
+                });
+            }, function (e) {
+                $('#gallery').append('<div>未选择图片</div>');
+            }, {filter: "image"});
+        });
+    }, false);
+</script>
+</html>
