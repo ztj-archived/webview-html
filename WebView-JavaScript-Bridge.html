@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>WebView JavaScript Bridge 通用测试脚本</title>
+</head>
+<body>
+<noscript>当前 JavaScript 不可用</noscript>
+<div id="init"></div>
+</body>
+<script>
+    const browser_bridge = {
+        init() {
+            //初始化方法
+            return '当前桥接对象：Browser'
+        },
+    };
+
+    (window.bridge === undefined) && (window.bridge = browser_bridge);
+    Object.keys(browser_bridge).forEach(key => {
+        (window.bridge[key] === undefined) && (window.bridge[key] = browser_bridge[key]);
+    });
+
+    document.getElementById('init').innerHTML = window.bridge.init();
+</script>
+</html>
