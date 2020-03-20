@@ -8,6 +8,7 @@
 <noscript>当前 JavaScript 不可用</noscript>
 <div id="init"></div>
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script>
     const browser_bridge = {
         init() {
@@ -21,6 +22,6 @@
         (window.bridge[key] === undefined) && (window.bridge[key] = browser_bridge[key]);
     });
 
-    document.getElementById('init').innerHTML = window.bridge.init();
+    $('#init').html(window.bridge.init());
 </script>
 </html>
